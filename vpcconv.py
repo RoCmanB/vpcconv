@@ -1,13 +1,16 @@
 import csv
 import re
 import pandas as pd
-import time, os
+import time
+import os
 
 
 start_time = time.time()
 filename = "input.txt"
 
 # Функция для извлечения данных из строки
+
+
 def extract_data(lines):
     data = {
         'DCS_TAG': '',
@@ -29,19 +32,18 @@ def extract_data(lines):
     }
 
     for line in lines:
-        #uname_match = re.search(r"/UNAME\s+=([^\s]+)\s+'(.+)'", line)
         uname_match = re.search(r"/UNAME\s+=([^\s]+)\s+([^\s]+)", line)
         if uname_match == None:
             uname_match = re.search(r"/UNAME\s+=([^\s]+)", line)
         utype_match = re.search(r"/UTYPE\s+=([^\s]+)", line)
-        #vname_match = re.search(r"/VNAME\s+=([^\s]+)\s+'(.+)'", line)
         vname_match = re.search(r"/VNAME\s+=([^\s]+)\s+([^\s]+)", line)
         if vname_match == None:
             vname_match = re.search(r"/VNAME\s+=([^\s]+)", line)
         scale_match = re.search(r"/SCALE\s+=([^\s]+)\s+([^\s]+)", line)
-        vtype_match = re.search(r"/VTYPE\s+=([^\s]+)\s+([^\s]+)\s+([^\s]+)", line)
+        vtype_match = re.search(r"/VTYPE\s+=([^\s]+)\s+([^\s]+)\s+([^\s]+)",
+                                line)
         refer_match = re.search(r"/REFER\s+=([^\s]+)\s+([^\s]+)\s+([^\s]+)\s+([^\s]+)\s+([^\s]+)\s+([^\s]+)", line)
-        
+
         if uname_match:
             if uname_match.lastindex > 1:
                 data['DCS_TAG'] = uname_match.group(1)
@@ -72,16 +74,15 @@ def extract_data(lines):
             data['VM_UNIT'] = refer_match.group(4)
             data['VAR'] = refer_match.group(5)
             data['VMArray1'] = refer_match.group(6)
-    
+
     return data
 
 
 # Список заголовков
-headers = [
-    'DCS_TAG', 'TagComment', 'Type', 'ITEM', 'ItemComment', 
-    'RangeHI', 'RangeLO', 'UNIT', 'DataType', 'Array1', 
-    'Array2', 'MarType', 'Process', 'VM_UNIT', 'VAR', 'VMArray1'
-]
+
+headers = ['DCS_TAG', 'TagComment', 'Type', 'ITEM', 'ItemComment', 'RangeHI',
+           'RangeLO', 'UNIT', 'DataType', 'Array1', 'Array2', 'MarType',
+           'Process', 'VM_UNIT', 'VAR', 'VMArray1']
 
 # Список для хранения всех данных
 all_data = []
