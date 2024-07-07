@@ -8,10 +8,9 @@ import os
 start_time = time.time()
 filename = "input.txt"
 
-# Функция для извлечения данных из строки
-
 
 def extract_data(lines):
+    '''Функция для извлечения данных из строки файла input.txt.'''
     data = {
         'DCS_TAG': '',
         'TagComment': '',
@@ -79,7 +78,6 @@ def extract_data(lines):
 
 
 # Список заголовков
-
 headers = ['DCS_TAG', 'TagComment', 'Type', 'ITEM', 'ItemComment', 'RangeHI',
            'RangeLO', 'UNIT', 'DataType', 'Array1', 'Array2', 'MarType',
            'Process', 'VM_UNIT', 'VAR', 'VMArray1']
